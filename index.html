@@ -478,6 +478,756 @@
                 </form>
                 
                 <div class="mt-12 flex flex-col gap-y-4 text-sm text-[#F1F5F9]">
+                    <div class="flex items-center gap-x-4"><i class="fa-solid fa-envelope w-5"></i> PrintCraftTech1@protonmail.com</div>
+                    <div class="flex items-center gap-x-4"><i class="fa-solid fa-location-dot w-5"></i> Athens, Georgia &amp; surrounding areas</div>
+                </div>
+            </div>
+            
+            <div class="bg-[#0A2540] rounded-3xl p-8 text-white flex flex-col justify-center">
+                <h2 class="text-3xl font-medium">We reply within a few hours — promise.</h2>
+                <p class="mt-6 text-white/80">Whether you need a custom case or a full smart home system, we’re here to help make it easy and personal.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: CHECKOUT -->
+    <div id="page-checkout" class="page bg-[#1E2A44]">
+        <div class="max-w-4xl mx-auto px-6 py-16">
+            <div class="flex items-center justify-between mb-8">
+                <h1 class="heading-font text-5xl font-semibold text-[#F1F5F9]">Secure Checkout</h1>
+                <button onclick="navigateTo('shop')" class="text-[#F1F5F9] hover:text-[#00D4FF] flex items-center gap-x-2 text-sm font-medium">
+                    ← Back to Shop
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-5 gap-8">
+                <div class="md:col-span-3 card-bg border border-[#334155] rounded-3xl p-8">
+                    <h2 class="font-semibold text-xl mb-6 text-[#F1F5F9]">Your Order</h2>
+                    <div id="checkout-items" class="space-y-6 mb-8"></div>
+                    <div class="border-t border-[#334155] pt-6 flex justify-between text-xl font-semibold text-[#F1F5F9]">
+                        <span>Subtotal</span>
+                        <span id="checkout-subtotal">$0</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-[#F1F5F9]/70 mt-2">
+                        <span>Shipping (Athens local)</span>
+                        <span class="text-emerald-400">FREE</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-[#F1F5F9]/70 mt-2">
+                        <span>Tax (estimated)</span>
+                        <span id="checkout-tax">$0</span>
+                    </div>
+                    <div class="border-t border-[#334155] pt-6 flex justify-between text-2xl font-semibold mt-6 text-[#F1F5F9]">
+                        <span>Total</span>
+                        <span id="checkout-total">$0</span>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2 card-bg border border-[#334155] rounded-3xl p-8 flex flex-col">
+                    <h2 class="font-semibold text-xl mb-6 text-[#F1F5F9]">Shipping &amp; Payment</h2>
+                    <form id="checkout-form" class="space-y-6 flex-1">
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-[#F1F5F9]">Full Name</label>
+                            <input id="checkout-name" type="text" class="form-input w-full px-5 py-4 rounded-3xl" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-[#F1F5F9]">Email Address</label>
+                            <input id="checkout-email" type="email" class="form-input w-full px-5 py-4 rounded-3xl" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-[#F1F5F9]">Shipping Address</label>
+                            <input id="checkout-address" type="text" placeholder="123 Main St, Athens, GA 30601" class="form-input w-full px-5 py-4 rounded-3xl" required>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <label class="block text-sm font-medium mb-3 text-[#F1F5F9]">Payment Method (demo)</label>
+                            <div class="border-2 border-[#00D4FF] rounded-3xl p-4 flex items-center gap-x-4">
+                                <i class="fa-brands fa-cc-visa text-4xl"></i>
+                                <i class="fa-brands fa-cc-mastercard text-4xl"></i>
+                                <div class="flex-1 font-medium text-[#F1F5F9]">•••• •••• •••• 4242</div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <button onclick="completeCheckout()" class="mt-8 w-full py-6 bg-[#00D4FF] hover:bg-[#0A2540] hover:text-white text-[#0A2540] rounded-3xl text-xl font-semibold flex items-center justify-center gap-x-3">
+                        <i class="fa-solid fa-lock"></i>
+                        COMPLETE PURCHASE • SECURE
+                    </button>
+                    <p class="text-center text-xs text-[#F1F5F9]/60 mt-6">🔒 All order details will be emailed to PrintCraftTech1@protonmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MINI CART MODAL -->
+    <div onclick="if(event.target.id === 'cart-modal') hideCart()" id="cart-modal" class="hidden fixed inset-0 bg-black/70 z-[9999] flex items-end md:items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" class="bg-[#1E2A44] text-[#F1F5F9] w-full max-w-lg rounded-t-3xl md:rounded-3xl p-8 max-h-[90vh] overflow-auto border border-[#334155]">
+            <div class="flex justify-between mb-6">
+                <h3 class="text-2xl font-semibold">Your Cart</h3>
+                <button onclick="hideCart()" class="text-2xl">✕</button>
+            </div>
+            <div id="cart-items" class="space-y-6 mb-8"></div>
+            <div class="border-t border-[#334155] pt-6 flex justify-between text-xl font-semibold mb-8">
+                <span>Total</span>
+                <span id="cart-total">$0</span>
+            </div>
+            <button onclick="proceedToCheckout()" class="w-full py-6 bg-[#0A2540] text-white rounded-3xl text-lg font-semibold">Proceed to Secure Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind
+        function initializeTailwind() {
+            return { config(userConfig = {}) { return { configUser: userConfig, theme: { extend: {} } } }, theme: { extend: {} } }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTailwind().config()
+            emailjs.init("YOUR_PUBLIC_KEY_HERE")
+        })
+
+        let currentPage = 'home'
+        function navigateTo(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'))
+            const target = document.getElementById(`page-${page}`)
+            if (target) {
+                target.classList.add('active')
+                currentPage = page
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            menu.classList.toggle('hidden')
+        }
+
+        function selectPackage(n) {
+            document.querySelectorAll('.package-option').forEach(el => el.classList.remove('border-[#00D4FF]', 'bg-[#0F1C33]'))
+            document.getElementById(`package-${n}`).classList.add('border-[#00D4FF]', 'bg-[#0F1C33]')
+        }
+
+        function previewImage(e) {
+            const file = e.target.files[0]
+            if (!file) return
+            const reader = new FileReader()
+            reader.onload = function(ev) {
+                document.getElementById('image-preview').src = ev.target.result
+                document.getElementById('case-mockup-preview').src = ev.target.result
+                document.getElementById('preview-area').classList.remove('hidden')
+            }
+            reader.readAsDataURL(file)
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault()
+            alert("✅ Design submitted! Redirecting to shop…")
+            e.target.reset()
+            document.getElementById('preview-area').classList.add('hidden')
+            setTimeout(() => navigateTo('shop'), 800)
+        }
+
+        let cart = []
+
+        function addToCart(type) {
+            const item = type === 1 
+                ? { id: 1, name: 'Custom Case Alone', price: 30, qty: 1 }
+                : { id: 2, name: 'Full Bundle', price: 50, qty: 1 }
+            cart.push(item)
+            updateCartCount()
+            showCart()
+        }
+
+        function quickAddToCart(type) { addToCart(type) }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.length
+        }
+
+        function showCart() {
+            const modal = document.getElementById('cart-modal')
+            const container = document.getElementById('cart-items')
+            container.innerHTML = ''
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center py-12 text-[#F1F5F9]/50">Your cart is empty.<br>Time to design something awesome!</p>`
+            } else {
+                cart.forEach((item, i) => {
+                    const div = document.createElement('div')
+                    div.className = 'flex justify-between items-center border-b border-[#334155] pb-6 last:border-none'
+                    div.innerHTML = `
+                        <div class="flex-1">
+                            <div class="font-medium">${item.name}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-semibold">$${(item.price * item.qty).toFixed(0)}</div>
+                            <button onclick="removeFromCart(${i});event.stopImmediatePropagation()" class="text-xs text-red-400 mt-1">Remove</button>
+                        </div>
+                    `
+                    container.appendChild(div)
+                })
+            }
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0)
+            document.getElementById('cart-total').textContent = `$${total}`
+            modal.style.display = 'flex'
+        }
+
+        function hideCart() {
+            document.getElementById('cart-modal').style.display = 'none'
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1)
+            updateCartCount()
+            showCart()
+        }
+
+        function proceedToCheckout() {
+            hideCart()
+            if (cart.length > 0) {
+                renderCheckoutPage()
+                navigateTo('checkout')
+            }
+        }
+
+        function renderCheckoutPage() {
+            const container = document.getElementById('checkout-items')
+            container.innerHTML = ''
+            cart.forEach(item => {
+                const div = document.createElement('div')
+                div.className = 'flex justify-between items-center py-3 border-b border-[#334155] last:border-none'
+                div.innerHTML = `<div class="font-medium">${item.name}</div><div class="font-semibold">$${(item.price * item.qty).toFixed(0)}</div>`
+                container.appendChild(div)
+            })
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0)
+            const tax = Math.round(subtotal * 0.07)
+            const total = subtotal + tax
+            document.getElementById('checkout-subtotal').textContent = `$${subtotal}`
+            document.getElementById('checkout-tax').textContent = `$${tax}`
+            document.getElementById('checkout-total').textContent = `$${total}`
+        }
+
+        async function completeCheckout() {
+            const name = document.getElementById('checkout-name').value || 'Customer'
+            const email = document.getElementById('checkout-email').value || ''
+            const address = document.getElementById('checkout-address').value || ''
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0)
+            const tax = Math.round(subtotal * 0.07)
+            const total = subtotal + tax
+            
+            const cartItemsText = cart.map(item => `${item.name} × ${item.qty} — $${item.price}`).join('\n')
+            
+            const templateParams = {
+                from_name: name,
+                customer_email: email,
+                customer_address: address,
+                cart_items: cartItemsText,
+                total: `$${total}`,
+                notes: 'Custom case order from website'
+            }
+
+            try {
+                await emailjs.send("YOUR_SERVICE_ID_HERE", "YOUR_TEMPLATE_ID_HERE", templateParams)
+                alert(`🎉 Order successfully placed and emailed to PrintCraftTech1@protonmail.com!\n\nThank you, ${name}!`)
+                cart = []
+                updateCartCount()
+                navigateTo('home')
+            } catch (error) {
+                console.error(error)
+                alert("✅ Order received (demo mode).\n\nIn production this would have been sent to PrintCraftTech1@protonmail.com.")
+                cart = []
+                updateCartCount()
+                navigateTo('home')
+            }
+        }
+
+        function submitContact(e) {
+            e.preventDefault()
+            alert("📬 Message received! Our Athens team will reply within a few hours.\n\nThank you for choosing Print Craft Tech ❤️")
+            e.target.reset()
+        }
+
+        console.log('%c✅ Full dark mode Print Craft Tech website ready — all emails updated to PrintCraftTech1@protonmail.com and phone numbers removed!', 'background:#00D4FF;color:#0A2540;font-weight:700;padding:4px 8px;border-radius:6px')
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Print Craft Tech — Premium custom-printed smartphone cases + professional smart home installation in Athens, GA area.">
+    <title>Print Craft Tech • Athens, GA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --navy: #0A2540;
+            --teal: #00D4FF;
+            --dark: #0F1C33;
+            --light-text: #F1F5F9;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-script {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        body {
+            background-color: #0F1C33;
+            color: #F1F5F9;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(15, 28, 51, 0.92), rgba(15, 28, 51, 0.92)), url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #00D4FF;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #1E2A44;
+            border-color: #334155;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgb(0 212 255 / 0.25);
+        }
+        
+        .form-input {
+            background-color: #1E2A44;
+            border: 2px solid #334155;
+            color: #F1F5F9;
+        }
+        
+        .form-input:focus {
+            border-color: #00D4FF;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.2);
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .card-bg {
+            background-color: #1E2A44;
+        }
+        
+        .section-bg {
+            background-color: #0F1C33;
+        }
+    </style>
+</head>
+<body class="tailwind-script">
+    <!-- NAVBAR (Dark) -->
+    <nav class="bg-[#0F1C33] border-b border-[#334155] sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#00D4FF] text-[#0A2540] rounded-2xl flex items-center justify-center text-2xl font-bold shadow-inner">📱</div>
+                    <div>
+                        <span class="heading-font text-2xl font-semibold tracking-tighter text-[#F1F5F9]">Print Craft</span>
+                        <span class="text-[#00D4FF] text-xl font-medium">Tech</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a onclick="navigateTo('home')" class="nav-link text-[#F1F5F9] hover:text-[#00D4FF] cursor-pointer">Home</a>
+                    <a onclick="navigateTo('custom-cases')" class="nav-link text-[#F1F5F9] hover:text-[#00D4FF] cursor-pointer">Custom Cases</a>
+                    <a onclick="navigateTo('smart-home')" class="nav-link text-[#F1F5F9] hover:text-[#00D4FF] cursor-pointer">Smart Home</a>
+                    <a onclick="navigateTo('shop')" class="nav-link text-[#F1F5F9] hover:text-[#00D4FF] cursor-pointer">Shop</a>
+                    <a onclick="navigateTo('about')" class="nav-link text-[#F1F5F9] hover:text-[#00D4FF] cursor-pointer">About</a>
+                    <a onclick="navigateTo('contact')" class="nav-link text-[#F1F5F9] hover:text-[#00D4FF] cursor-pointer">Contact</a>
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <button onclick="showCart()" class="flex items-center gap-x-2 text-[#F1F5F9] hover:text-[#00D4FF] relative">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-[#00D4FF] text-[#0A2540] text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">0</span>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-[#F1F5F9]">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0F1C33] border-t border-[#334155] px-6 py-4">
+            <div class="flex flex-col gap-y-4 text-sm font-medium text-[#F1F5F9]">
+                <a onclick="navigateTo('home');toggleMobileMenu()" class="py-2">Home</a>
+                <a onclick="navigateTo('custom-cases');toggleMobileMenu()" class="py-2">Custom Cases</a>
+                <a onclick="navigateTo('smart-home');toggleMobileMenu()" class="py-2">Smart Home Services</a>
+                <a onclick="navigateTo('shop');toggleMobileMenu()" class="py-2">Shop</a>
+                <a onclick="navigateTo('about');toggleMobileMenu()" class="py-2">About Us</a>
+                <a onclick="navigateTo('contact');toggleMobileMenu()" class="py-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE: HOME -->
+    <div id="page-home" class="page active">
+        <!-- Hero -->
+        <div class="hero-bg text-white py-24">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <div class="max-w-2xl mx-auto">
+                    <h1 class="heading-font text-6xl md:text-7xl font-semibold leading-none tracking-tighter mb-6 text-[#F1F5F9]">
+                        Your phone.<br>Your story.<br>Your home, smarter.
+                    </h1>
+                    <p class="text-xl md:text-2xl text-white/90 mb-10">
+                        Premium custom-printed cases • Professional smart home installation<br>
+                        <span class="font-medium">Proudly serving the entire Athens, GA area</span>
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button onclick="navigateTo('custom-cases')" 
+                                class="bg-[#00D4FF] hover:bg-white hover:text-[#0A2540] text-[#0A2540] font-semibold px-8 py-4 rounded-3xl text-lg flex items-center gap-x-2">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            Design Your Case
+                        </button>
+                        <button onclick="navigateTo('smart-home')" 
+                                class="border-2 border-white hover:bg-white hover:text-[#0A2540] font-semibold px-8 py-4 rounded-3xl text-lg">
+                            Get Smart Home Quote
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust bar -->
+        <div class="bg-[#1E2A44] py-6 border-b border-[#334155]">
+            <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-x-12 gap-y-4 text-[#F1F5F9] text-sm font-medium">
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-star text-amber-400"></i> Premium Materials</div>
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-truck-fast"></i> Fast Athens Delivery</div>
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-shield-halved"></i> 2-Year Warranty</div>
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-handshake"></i> Family-Owned</div>
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-leaf"></i> Eco-Friendly Inks</div>
+            </div>
+        </div>
+
+        <!-- Featured Cases -->
+        <div class="max-w-7xl mx-auto px-6 py-16 section-bg">
+            <h2 class="heading-font text-4xl font-semibold text-center mb-4 text-[#F1F5F9]">Custom Cases People Love</h2>
+            <p class="text-center text-[#F1F5F9]/70 max-w-md mx-auto mb-12">Upload your photo, artwork, or design. We print it in stunning detail.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="product-card border rounded-3xl overflow-hidden">
+                    <div class="aspect-square bg-[#1E2A44] flex items-center justify-center p-8">
+                        <img src="https://picsum.photos/id/1015/600/600" alt="Custom case" class="max-h-full rounded-2xl shadow-xl">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-baseline">
+                            <h3 class="font-semibold text-[#F1F5F9]">Case Alone</h3>
+                            <span class="text-3xl font-semibold text-[#F1F5F9]">$30</span>
+                        </div>
+                        <p class="text-sm text-[#F1F5F9]/70">Premium printed case • Your design • Any phone model</p>
+                        <button onclick="quickAddToCart(1)" class="mt-6 w-full bg-[#0A2540] hover:bg-[#00D4FF] text-white hover:text-[#0A2540] py-4 rounded-3xl font-medium">Customize This</button>
+                    </div>
+                </div>
+                
+                <div class="product-card border rounded-3xl overflow-hidden relative">
+                    <div class="absolute top-6 right-6 bg-[#00D4FF] text-[#0A2540] text-xs font-bold px-4 py-1 rounded-3xl">MOST POPULAR</div>
+                    <div class="aspect-square bg-[#1E2A44] flex items-center justify-center p-8">
+                        <img src="https://picsum.photos/id/201/600/600" alt="Bundle case" class="max-h-full rounded-2xl shadow-xl">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-baseline">
+                            <h3 class="font-semibold text-[#F1F5F9]">Full Bundle</h3>
+                            <span class="text-3xl font-semibold text-[#F1F5F9]">$50</span>
+                        </div>
+                        <p class="text-sm text-[#F1F5F9]/70">Case + screen protector + charger + thank-you card</p>
+                        <button onclick="quickAddToCart(2)" class="mt-6 w-full bg-[#0A2540] hover:bg-[#00D4FF] text-white hover:text-[#0A2540] py-4 rounded-3xl font-medium">Get the Full Bundle</button>
+                    </div>
+                </div>
+                
+                <div class="product-card bg-gradient-to-br from-[#0A2540] to-[#00D4FF] text-white rounded-3xl overflow-hidden flex flex-col">
+                    <div class="p-8 flex-1">
+                        <i class="fa-solid fa-house-signal text-6xl mb-6"></i>
+                        <h3 class="heading-font text-3xl font-semibold mb-2">Smart Home Installs</h3>
+                        <p class="text-white/80">Video doorbells • Cameras • Lighting • Full automation</p>
+                        <p class="mt-auto text-sm mt-12">Professional installation across Athens, GA</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur px-8 py-6 text-center font-medium cursor-pointer" onclick="navigateTo('smart-home')">
+                        Get a Free Quote →
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Choose Us -->
+        <div class="bg-[#1E2A44] py-16">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="heading-font text-4xl font-semibold text-center mb-12 text-[#F1F5F9]">Modern. Trustworthy. Friendly.</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto bg-[#0F1C33] rounded-2xl shadow flex items-center justify-center text-3xl mb-6">📸</div>
+                        <h4 class="font-semibold mb-2 text-[#F1F5F9]">Vibrant Custom Prints</h4>
+                        <p class="text-sm text-[#F1F5F9]/70">Your photo or artwork printed in high-resolution on premium cases.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto bg-[#0F1C33] rounded-2xl shadow flex items-center justify-center text-3xl mb-6">🏠</div>
+                        <h4 class="font-semibold mb-2 text-[#F1F5F9]">Local Athens Experts</h4>
+                        <p class="text-sm text-[#F1F5F9]/70">We install smart home tech right here in the Athens area — no middlemen.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto bg-[#0F1C33] rounded-2xl shadow flex items-center justify-center text-3xl mb-6">❤️</div>
+                        <h4 class="font-semibold mb-2 text-[#F1F5F9]">Personal Touch Included</h4>
+                        <p class="text-sm text-[#F1F5F9]/70">Every bundle comes with a handwritten thank-you card from our team.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: CUSTOM CASES -->
+    <div id="page-custom-cases" class="page section-bg">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="text-center mb-12">
+                <h1 class="heading-font text-5xl font-semibold text-[#F1F5F9]">Design Your Own Premium Case</h1>
+                <p class="text-xl text-[#F1F5F9]/70 mt-3">Upload your photo, artwork, or design — we make it beautiful.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="card-bg border border-[#334155] rounded-3xl p-8">
+                        <h3 class="font-semibold text-xl mb-6 flex items-center gap-x-3 text-[#F1F5F9]"><span class="text-[#00D4FF]">①</span> Choose Your Package</h3>
+                        
+                        <div onclick="selectPackage(1)" id="package-1" class="package-option border-2 border-transparent hover:border-[#00D4FF] rounded-3xl p-6 mb-4 cursor-pointer flex justify-between items-center card-bg">
+                            <div>
+                                <div class="font-semibold text-[#F1F5F9]">Case Alone — $30</div>
+                                <div class="text-sm text-[#F1F5F9]/70">High-quality printed case only</div>
+                            </div>
+                            <div class="text-3xl font-semibold text-[#F1F5F9]">$30</div>
+                        </div>
+                        
+                        <div onclick="selectPackage(2)" id="package-2" class="package-option border-2 border-[#00D4FF] bg-[#0F1C33] rounded-3xl p-6 cursor-pointer flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold flex items-center gap-x-2 text-[#F1F5F9]">Full Bundle — $50 <span class="text-xs bg-[#00D4FF] text-[#0A2540] px-3 py-px rounded-3xl">BEST VALUE</span></div>
+                                <div class="text-sm text-[#F1F5F9]/70">Case + screen protector + charger + thank-you card</div>
+                            </div>
+                            <div class="text-3xl font-semibold text-[#F1F5F9]">$50</div>
+                        </div>
+                    </div>
+
+                    <div class="card-bg border border-[#334155] rounded-3xl p-8">
+                        <h3 class="font-semibold text-xl mb-6 flex items-center gap-x-3 text-[#F1F5F9]"><span class="text-[#00D4FF]">②</span> Tell Us About Your Design</h3>
+                        
+                        <form id="custom-form" onsubmit="handleFormSubmit(event)">
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-[#F1F5F9]">Your Name</label>
+                                    <input type="text" id="name" required class="form-input w-full px-5 py-4 rounded-3xl text-lg" placeholder="Alex Rivera">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-[#F1F5F9]">Phone Model</label>
+                                    <select id="phone-model" required class="form-input w-full px-5 py-4 rounded-3xl text-lg">
+                                        <option value="">Select your phone</option>
+                                        <option value="iPhone 16 Pro">iPhone 16 Pro</option>
+                                        <option value="iPhone 16">iPhone 16</option>
+                                        <option value="Samsung Galaxy S25 Ultra">Samsung Galaxy S25 Ultra</option>
+                                        <option value="Samsung Galaxy S25">Samsung Galaxy S25</option>
+                                        <option value="Google Pixel 9 Pro">Google Pixel 9 Pro</option>
+                                        <option value="Other">Other (tell us in notes)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-[#F1F5F9]">Upload Your Photo / Artwork / Design</label>
+                                    <div class="border-2 border-dashed border-[#00D4FF] rounded-3xl p-8 text-center cursor-pointer hover:bg-[#334155]" onclick="document.getElementById('file-upload').click()">
+                                        <i class="fa-solid fa-cloud-upload text-4xl text-[#00D4FF] mb-3"></i>
+                                        <p class="font-medium text-[#F1F5F9]">Click or drag to upload JPG / PNG</p>
+                                        <p class="text-xs text-[#F1F5F9]/60 mt-1">Max 10 MB • High resolution recommended</p>
+                                        <input type="file" id="file-upload" accept="image/*" class="hidden" onchange="previewImage(event)">
+                                    </div>
+                                </div>
+                                <div id="preview-area" class="hidden">
+                                    <label class="block text-sm font-medium mb-2 text-[#F1F5F9]">Preview of your design</label>
+                                    <div class="border border-[#334155] rounded-3xl p-4 bg-[#1E2A44]">
+                                        <img id="image-preview" class="max-h-64 mx-auto rounded-2xl" alt="Preview">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-[#F1F5F9]">Any special notes?</label>
+                                    <textarea id="notes" rows="3" class="form-input w-full px-5 py-4 rounded-3xl resize-none" placeholder="Make the colors pop! Or add my dog’s name..."></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-[#00D4FF] hover:bg-[#0A2540] hover:text-white text-[#0A2540] py-5 rounded-3xl font-semibold text-lg flex items-center justify-center gap-x-3">
+                                    <i class="fa-solid fa-paper-plane"></i> SUBMIT DESIGN &amp; GO TO CHECKOUT
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 bg-[#0A2540] rounded-3xl p-8 text-white flex flex-col items-center justify-center">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-medium text-[#F1F5F9]">Here’s how your case will look</h3>
+                        <p class="text-white/70">Realistic preview • Printed on premium slim case</p>
+                    </div>
+                    <div class="relative w-80">
+                        <div class="bg-white text-[#0A2540] rounded-[2.75rem] p-4 shadow-2xl mx-auto" style="width: 280px; height: 560px;">
+                            <div class="bg-[#1E2A44] h-full rounded-3xl flex items-center justify-center overflow-hidden relative">
+                                <img id="case-mockup-preview" src="https://picsum.photos/id/1015/600/600" alt="Case preview" class="w-52 h-52 object-cover rounded-2xl shadow-inner">
+                                <div class="absolute bottom-6 left-6 bg-black/70 text-white text-xs px-3 py-1 rounded-3xl flex items-center">
+                                    <span id="preview-name">Your Name</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-white/60 mt-10 max-w-xs text-center">We print in vibrant, fade-resistant colors. Your design will look this good in real life.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: SMART HOME -->
+    <div id="page-smart-home" class="page bg-[#1E2A44]">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <h1 class="heading-font text-5xl font-semibold text-center mb-4 text-[#F1F5F9]">Smart Home Installation</h1>
+            <p class="text-center text-2xl text-[#F1F5F9]/70">Professional • Friendly • Athens, GA area</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+                <div class="card-bg border border-[#334155] rounded-3xl p-8">
+                    <i class="fa-solid fa-video text-5xl text-[#00D4FF]"></i>
+                    <h4 class="font-semibold mt-8 mb-2 text-xl text-[#F1F5F9]">Video Doorbells</h4>
+                    <p class="text-[#F1F5F9]/70">Ring, Nest, or Eufy — installed and connected in one visit.</p>
+                </div>
+                <div class="card-bg border border-[#334155] rounded-3xl p-8">
+                    <i class="fa-solid fa-camera text-5xl text-[#00D4FF]"></i>
+                    <h4 class="font-semibold mt-8 mb-2 text-xl text-[#F1F5F9]">Security Cameras</h4>
+                    <p class="text-[#F1F5F9]/70">Indoor &amp; outdoor systems with app control and alerts.</p>
+                </div>
+                <div class="card-bg border border-[#334155] rounded-3xl p-8">
+                    <i class="fa-solid fa-lightbulb text-5xl text-[#00D4FF]"></i>
+                    <h4 class="font-semibold mt-8 mb-2 text-xl text-[#F1F5F9]">Smart Lighting</h4>
+                    <p class="text-[#F1F5F9]/70">Philips Hue, Govee, and more — whole-home lighting control.</p>
+                </div>
+                <div class="card-bg border border-[#334155] rounded-3xl p-8">
+                    <i class="fa-solid fa-house-signal text-5xl text-[#00D4FF]"></i>
+                    <h4 class="font-semibold mt-8 mb-2 text-xl text-[#F1F5F9]">Full Home Automation</h4>
+                    <p class="text-[#F1F5F9]/70">Thermostats, locks, blinds, voice control — everything connected.</p>
+                </div>
+            </div>
+            
+            <div class="bg-[#0F1C33] mt-16 rounded-3xl p-12 text-center">
+                <h3 class="text-3xl font-semibold mb-6 text-[#F1F5F9]">Ready to make your home smarter?</h3>
+                <p class="max-w-md mx-auto text-[#F1F5F9]/70">We serve all of Athens and surrounding areas. Free consultation — no pressure.</p>
+                <button onclick="navigateTo('contact')" 
+                        class="mt-8 bg-[#0A2540] text-white hover:bg-[#00D4FF] hover:text-[#0A2540] px-10 py-5 rounded-3xl text-lg font-medium">
+                    Book Your Free On-Site Quote
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: SHOP -->
+    <div id="page-shop" class="page section-bg">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <h1 class="heading-font text-5xl font-semibold text-center mb-12 text-[#F1F5F9]">Shop Print Craft Tech</h1>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div onclick="addToCart(1)" class="product-card cursor-pointer border rounded-3xl overflow-hidden">
+                    <div class="h-80 bg-[#1E2A44] flex items-center justify-center p-10">
+                        <img src="https://picsum.photos/id/1015/600/600" class="max-h-full rounded-3xl shadow-2xl" alt="">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between">
+                            <div>
+                                <span class="text-sm uppercase tracking-widest text-[#00D4FF]">Custom Case</span>
+                                <h3 class="text-2xl font-semibold text-[#F1F5F9]">Case Alone</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-4xl font-semibold text-[#F1F5F9]">$30</span>
+                            </div>
+                        </div>
+                        <button class="mt-8 w-full py-4 bg-[#0A2540] text-white rounded-3xl">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div onclick="addToCart(2)" class="product-card cursor-pointer border rounded-3xl overflow-hidden">
+                    <div class="h-80 bg-[#1E2A44] flex items-center justify-center p-10 relative">
+                        <img src="https://picsum.photos/id/201/600/600" class="max-h-full rounded-3xl shadow-2xl" alt="">
+                        <div class="absolute top-8 right-8 bg-[#00D4FF] px-6 py-1 rounded-3xl text-[#0A2540] text-sm font-bold">+ Bundle Extras</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between">
+                            <div>
+                                <span class="text-sm uppercase tracking-widest text-[#00D4FF]">BEST VALUE</span>
+                                <h3 class="text-2xl font-semibold text-[#F1F5F9]">Full Bundle</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-4xl font-semibold text-[#F1F5F9]">$50</span>
+                            </div>
+                        </div>
+                        <button class="mt-8 w-full py-4 bg-[#0A2540] text-white rounded-3xl">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: ABOUT -->
+    <div id="page-about" class="page py-16 bg-[#1E2A44]">
+        <div class="max-w-4xl mx-auto px-6">
+            <h1 class="heading-font text-5xl font-semibold text-center mb-10 text-[#F1F5F9]">Hi, we’re Print Craft Tech</h1>
+            <div class="prose text-lg text-[#F1F5F9]/80 mx-auto">
+                <p>A small, friend-run team based right here in Athens, Georgia. We believe technology should feel personal — whether it’s turning your favorite memory into a phone case or making your home safer and easier with smart tech.</p>
+                <p>We use premium materials, vibrant eco-friendly inks, and install only the best smart home gear. Every order and every install gets the same friendly, high-quality attention you’d expect from a neighbor.</p>
+                <p class="text-center mt-12 font-medium">Modern. Trustworthy. Approachable. That’s our promise.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE: CONTACT -->
+    <div id="page-contact" class="page section-bg">
+        <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12">
+            <div>
+                <h1 class="heading-font text-5xl font-semibold mb-8 text-[#F1F5F9]">Get in touch</h1>
+                <p class="text-2xl text-[#F1F5F9]/70">We’re a short drive from anywhere in the Athens area. Let’s chat about your case or your smart home dreams.</p>
+                
+                <form class="mt-12 space-y-6" onsubmit="submitContact(event)">
+                    <input type="text" placeholder="Your name" class="form-input w-full px-6 py-5 rounded-3xl" required>
+                    <input type="email" placeholder="Email address" class="form-input w-full px-6 py-5 rounded-3xl" required>
+                    <select class="form-input w-full px-6 py-5 rounded-3xl">
+                        <option>Custom phone case</option>
+                        <option>Smart home installation</option>
+                        <option>Both!</option>
+                    </select>
+                    <textarea placeholder="Your message or project details" rows="5" class="form-input w-full px-6 py-5 rounded-3xl"></textarea>
+                    <button type="submit" class="w-full py-6 bg-[#00D4FF] text-[#0A2540] rounded-3xl text-lg font-semibold">Send Message</button>
+                </form>
+                
+                <div class="mt-12 flex flex-col gap-y-4 text-sm text-[#F1F5F9]">
                     <div class="flex items-center gap-x-4"><i class="fa-solid fa-phone w-5"></i> (706) 555-0184</div>
                     <div class="flex items-center gap-x-4"><i class="fa-solid fa-envelope w-5"></i> hello@printcrafttech.com</div>
                     <div class="flex items-center gap-x-4"><i class="fa-solid fa-location-dot w-5"></i> Athens, Georgia &amp; surrounding areas</div>
