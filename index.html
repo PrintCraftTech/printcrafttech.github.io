@@ -1,4 +1,98 @@
-m printed case • Your design • Any phone model</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Craft Tech • Athens, GA</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; color: #333; }
+        header { background: #4CAF50; color: white; padding: 20px; text-align: center; }
+        .hero { text-align: center; padding: 40px 20px; background: white; }
+        .phone-options { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin: 40px 0; }
+        .phone-card { 
+            cursor: pointer; 
+            text-align: center; 
+            max-width: 280px; 
+            border: 3px solid #4CAF50; 
+            border-radius: 15px; 
+            padding: 20px; 
+            background: white; 
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .phone-card:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .phone-card img { width: 100%; max-width: 220px; border-radius: 10px; }
+        .phone-card h3 { margin: 15px 0 5px; color: #4CAF50; }
+        .services, .footer { padding: 40px 20px; text-align: center; background: white; }
+        button, .btn { background: #4CAF50; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Print Craft Tech</h1>
+        <p>Your phone. Your story. Your home, smarter. • Athens, GA</p>
+    </header>
+
+    <div class="hero">
+        <h2>Custom Phone Cases & Smart Home Solutions</h2>
+        <p>Upload your photo or design and create something unique.</p>
+    </div>
+
+    <!-- FIXED PHONE OPTIONS SECTION -->
+    <div class="phone-options">
+        
+        <!-- Phone Option 1 -->
+        <div class="phone-card" onclick="goToCustomize('standard')">
+            <img src="https://via.placeholder.com/220x300/4CAF50/ffffff?text=Standard+Case" alt="Standard Phone Case">
+            <h3>Standard Case</h3>
+            <p>$30 • Basic custom print</p>
+            <button class="btn">Customize This Case</button>
+        </div>
+
+        <!-- Phone Option 2 -->
+        <div class="phone-card" onclick="goToCustomize('bundle')">
+            <img src="https://via.placeholder.com/220x300/4CAF50/ffffff?text=Full+Bundle" alt="Premium Bundle">
+            <h3>Full Bundle</h3>
+            <p>$50 • Case + extras</p>
+            <button class="btn">Get the Full Bundle</button>
+        </div>
+        
+    </div>
+
+    <div class="services">
+        <h2>Smart Home Installations</h2>
+        <p>Ring / Nest / Eufy doorbells • Philips Hue / Govee lighting • Full automation setups</p>
+        <button class="btn" onclick="alert('Contact form coming soon – reach out via email for free quote!')">Get Free Quote</button>
+    </div>
+
+    <div class="footer">
+        <p>Local • Family-run • Eco-friendly shipping • Athens, GA</p>
+        <p>Contact: printcrafttech@gmail.com</p>
+    </div>
+
+    <script>
+        // FIXED NAVIGATION FUNCTION
+        function goToCustomize(type) {
+            // Save which option was chosen (customize page can read this if needed)
+            localStorage.setItem("selectedPhoneType", type);
+            
+            // Navigate to the customize screen
+            // Change "customize.html" below if your customize file has a different name
+            window.location.href = "customize.html";
+        }
+
+        // Optional: If your customize screen is in the same file using sections, uncomment and adjust IDs:
+        /*
+        function goToCustomize(type) {
+            localStorage.setItem("selectedPhoneType", type);
+            document.getElementById('home-content').style.display = 'none';
+            document.getElementById('customize-content').style.display = 'block';
+        }
+        */
+    </script>
+
+</body>
+</html>m printed case • Your design • Any phone model</p>
                         <button onclick="quickAddToCart(1)" class="mt-6 w-full bg-[#0A2540] hover:bg-[#00D4FF] text-white hover:text-[#0A2540] py-4 rounded-3xl font-medium">Customize This</button>
                     </div>
                 </div>
