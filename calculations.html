@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PRINTCRAFTTECH Dashboard</title>
+    <style>
+        body { background: #0b0e14; color: white; font-family: sans-serif; padding: 20px; text-align: center; }
+        .card { background: #1a2a6c; padding: 20px; border-radius: 15px; border: 1px solid #00d4ff; display: inline-block; width: 90%; max-width: 400px; }
+        input { width: 80%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+        label { display: block; font-size: 14px; color: #00d4ff; margin-top: 10px; }
+        .result { font-size: 24px; font-weight: bold; margin-top: 20px; color: #00ff88; }
+        .debt { color: #ff4d4d; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>PRINTCRAFTTECH</h1>
+    <div class="card">
+        <label>Filament Cost ($/kg)</label>
+        <input type="number" id="filCost" value="25" oninput="calc()">
+        
+        <label>Case Weight (grams)</label>
+        <input type="number" id="weight" value="45" oninput="calc()">
+        
+        <label>Selling Price ($)</label>
+        <input type="number" id="price" value="20" oninput="calc()">
+
+        <hr>
+        <div class="result">Profit per Case: $<span id="profit">0.00</span></div>
+        <div class="debt">Sales to pay off $350 License: <span id="sales">0</span></div>
+    </div>
+
+    <script>
+        function calc() {
+            let f = document.getElementById('filCost').value;
+            let w = document.getElementById('weight').value;
+            let p = document.getElementById('price').value;
+            
+            // Math: (Cost per gram * weight) + $1.00 for electricity/parts
+            let costToMake = ((f / 1000) * w) + 1.00;
+            let profit = p - costToMake;
+            let salesNeeded = Math.ceil(350 / profit);
+
+            document.getElementById('profit').innerText = profit.toFixed(2);
+            document.getElementById('sales').innerText = salesNeeded;
+        }
+        window.onload = calc;
+    </script>
+</body>
+</html>
